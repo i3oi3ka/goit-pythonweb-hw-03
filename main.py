@@ -43,14 +43,13 @@ class HttpHandler(BaseHTTPRequestHandler):
         data_parse = urllib.parse.unquote_plus(data.decode())
         print(data_parse)
         data_dict = {
-            "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            **{
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"): {
                 key: value
                 for key, value in [el.split("=") for el in data_parse.split("&")]
-            },
+            }
         }
 
-        with open("./storage/data.json", "a") as file:
+        with open("./storage/data.json", "a ") as file:
             file.write(json.dumps(data_dict))
         print(data_dict)
         self.send_response(302)
