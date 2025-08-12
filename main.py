@@ -13,6 +13,8 @@ class HttpHandler(BaseHTTPRequestHandler):
             self.send_html_file("index.html")
         elif pr_url.path == "/message.html":
             self.send_html_file("message.html")
+        elif pr_url.path == "/read":
+            self.send_html_file("read.html")
         else:
             if pathlib.Path().joinpath(pr_url.path[1:]).exists():
                 self.send_static()
@@ -49,9 +51,15 @@ class HttpHandler(BaseHTTPRequestHandler):
             }
         }
 
-        with open("./storage/data.json", "a ") as file:
-            file.write(json.dumps(data_dict))
-        print(data_dict)
+        with open("./storage/data.json", "r+", encoding="utf-8") as file:
+            file.seek(0)
+            try:
+                data = json.load(file)
+            except json.JSONDecodeError:
+                data = {}
+            data.update(data_dict)
+            file.seek(0)
+            file.write(json.dumps(data))
         self.send_response(302)
         self.send_header("Location", "/")
         self.end_headers()
