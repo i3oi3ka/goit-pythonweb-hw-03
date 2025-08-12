@@ -1,4 +1,5 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
+from jinja2 import Environment, FileSystemLoader
 import mimetypes
 import pathlib
 import urllib.parse
@@ -13,7 +14,23 @@ class HttpHandler(BaseHTTPRequestHandler):
             self.send_html_file("index.html")
         elif pr_url.path == "/message.html":
             self.send_html_file("message.html")
-        elif pr_url.path == "/read":
+        elif pr_url.path == "/read.html":
+            with open("./storage/data.json", "r", encoding="utf-8") as file:
+                try:
+                    data = json.load(file)
+                except json.JSONDecodeError:
+                    data = {}
+
+            env = Environment(loader=FileSystemLoader("."))
+            template = env.get_template("read_template.html")
+            if not data:
+                data = {"": {"username": "No messages", "message": "No messages"}}
+            rendered_html = template.render(data=data)
+            print("data", data)
+
+            with open("read.html", "w", encoding="utf-8") as file:
+                file.write(rendered_html)
+
             self.send_html_file("read.html")
         else:
             if pathlib.Path().joinpath(pr_url.path[1:]).exists():
