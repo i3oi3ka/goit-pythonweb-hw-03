@@ -23,10 +23,7 @@ class HttpHandler(BaseHTTPRequestHandler):
 
             env = Environment(loader=FileSystemLoader("."))
             template = env.get_template("read_template.html")
-            if not data:
-                data = {"": {"username": "No messages", "message": "No messages"}}
             rendered_html = template.render(data=data)
-            print("data", data)
 
             with open("read.html", "w", encoding="utf-8") as file:
                 file.write(rendered_html)

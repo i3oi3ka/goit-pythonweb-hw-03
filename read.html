@@ -47,15 +47,31 @@
     <main class="container">
       <h2 class="mt-5">Stored Messages</h2>
       <ul class="list-unstyled">
-        {% for timestamp, message in data.items() %}
+          
         <li class="media mb-4">
           <div class="media-body">
-            <h5 class="mt-0 mb-1">{{ timestamp }}</h5>
-            <h5 class="mt-0 mb-1">{{ message.username }}</h5>
-            <p class="fs-5 text-muted">{{ message.message }}</p>
+            <h5 class="mt-0 mb-1">2025-08-12 23:13:45</h5>
+            <h5 class="mt-0 mb-1">12312</h5>
+            <p class="fs-5 text-muted">123123</p>
           </div>
         </li>
-        {% endfor %}
+        
+        <li class="media mb-4">
+          <div class="media-body">
+            <h5 class="mt-0 mb-1">2025-08-12 23:13:50</h5>
+            <h5 class="mt-0 mb-1">23213</h5>
+            <p class="fs-5 text-muted">2323</p>
+          </div>
+        </li>
+        
+        <li class="media mb-4">
+          <div class="media-body">
+            <h5 class="mt-0 mb-1">2025-08-12 23:14:17</h5>
+            <h5 class="mt-0 mb-1">333</h5>
+            <p class="fs-5 text-muted">33333333</p>
+          </div>
+        </li>
+         
       </ul>
     </main>
   </body>
