@@ -55,9 +55,9 @@ class HttpHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         data = self.rfile.read(int(self.headers["Content-Length"]))
-        print(data)
+
         data_parse = urllib.parse.unquote_plus(data.decode())
-        print(data_parse)
+
         data_dict = {
             datetime.now().strftime("%Y-%m-%d %H:%M:%S"): {
                 key: value
